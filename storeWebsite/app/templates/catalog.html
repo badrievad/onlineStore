@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Каталог автомобилей</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topbar-styles.css') }}" />
+</head>
+<body>
+
+    <!-- Включение топбара -->
+    {% include 'topbar.html' %}
+
+    <!-- Основной контент каталога -->
+    <main class="catalog">
+        {% for car in cars %}
+        <div class="car-card">
+            <div class="car-image">
+                <img src="{{ car['image_url'] }}" alt="{{ car['name'] }}">
+                {% if car['discount'] %}
+                <span class="discount-banner">Выгода до {{ car['discount'] }} Р</span>
+                {% endif %}
+            </div>
+            <div class="car-info">
+                <h2>{{ car['name'] }}</h2>
+                <div class="price">
+                    <span class="current-price">{{ car['price'] }} Р</span>
+                    {% if car['old_price'] %}
+                    <span class="old-price">{{ car['old_price'] }} Р</span>
+                    {% endif %}
+                </div>
+                <p>{{ car['transmission'] }} • {{ car['drive_type'] }} • {{ car['engine'] }} л. • {{ car['fuel_type'] }}</p>
+                <p>{{ car['year'] }} г.в. • {{ car['class'] }}</p>
+                <div class="status">
+                    <span class="badge guarantee">Гарантия</span>
+                    <span class="badge in-stock">В наличии</span>
+                </div>
+                <p class="location">{{ car['location'] }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </main>
+
+</body>
+</html>
