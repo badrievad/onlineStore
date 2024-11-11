@@ -1,0 +1,11 @@
+black==24.10.0
+click==8.1.7
+grpcio==1.67.1
+grpcio-tools==1.67.1
+mypy-extensions==1.0.0
+packaging==24.2
+pathspec==0.12.1
+platformdirs==4.3.6
+protobuf==5.28.3
+ruff==0.7.3
+setuptools==75.3.0

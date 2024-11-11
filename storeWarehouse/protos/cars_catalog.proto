@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package cars;
+
+service CarsCatalogService {
+  rpc GetCarsCatalog(Empty) returns (CarsCatalogResponse);
+}
+
+message Empty {}
+
+message Car {
+  int32 id = 1;
+  string name = 2;
+  string price = 3;
+  string image_url = 4;
+  int32 year = 5;
+  string color = 6;
+  string transmission = 7;
+  string old_price = 8;
+  string discount = 9;
+  string drive_type = 10;
+  float engine = 11;
+  string fuel_type = 12;
+}
+
+message CarsCatalogResponse {
+  repeated Car cars = 1;
+}
