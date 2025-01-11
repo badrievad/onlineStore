@@ -10,7 +10,9 @@ def create_app(debug=False):
     app.config.from_pyfile("config.py")
 
     from .site import web_bp as web_blueprint
+    from .warehouse import warehouse_bp as warehouse_blueprint
 
     app.register_blueprint(web_blueprint)
+    app.register_blueprint(warehouse_blueprint)
 
     return app

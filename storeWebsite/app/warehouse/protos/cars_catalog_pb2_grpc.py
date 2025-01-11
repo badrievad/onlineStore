@@ -5,23 +5,26 @@ import warnings
 
 from . import cars_catalog_pb2 as cars__catalog__pb2
 
-GRPC_GENERATED_VERSION = '1.67.1'
+GRPC_GENERATED_VERSION = "1.67.1"
 GRPC_VERSION = grpc.__version__
 _version_not_supported = False
 
 try:
     from grpc._utilities import first_version_is_lower
-    _version_not_supported = first_version_is_lower(GRPC_VERSION, GRPC_GENERATED_VERSION)
+
+    _version_not_supported = first_version_is_lower(
+        GRPC_VERSION, GRPC_GENERATED_VERSION
+    )
 except ImportError:
     _version_not_supported = True
 
 if _version_not_supported:
     raise RuntimeError(
-        f'The grpc package installed is at version {GRPC_VERSION},'
-        + f' but the generated code in cars_catalog_pb2_grpc.py depends on'
-        + f' grpcio>={GRPC_GENERATED_VERSION}.'
-        + f' Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}'
-        + f' or downgrade your generated code using grpcio-tools<={GRPC_VERSION}.'
+        f"The grpc package installed is at version {GRPC_VERSION},"
+        + f" but the generated code in cars_catalog_pb2_grpc.py depends on"
+        + f" grpcio>={GRPC_GENERATED_VERSION}."
+        + f" Please upgrade your grpc module to grpcio>={GRPC_GENERATED_VERSION}"
+        + f" or downgrade your generated code using grpcio-tools<={GRPC_VERSION}."
     )
 
 
@@ -35,10 +38,11 @@ class CarsCatalogServiceStub(object):
             channel: A grpc.Channel.
         """
         self.GetCarsCatalog = channel.unary_unary(
-                '/cars.CarsCatalogService/GetCarsCatalog',
-                request_serializer=cars__catalog__pb2.Empty.SerializeToString,
-                response_deserializer=cars__catalog__pb2.CarsCatalogResponse.FromString,
-                _registered_method=True)
+            "/cars.CarsCatalogService/GetCarsCatalog",
+            request_serializer=cars__catalog__pb2.Empty.SerializeToString,
+            response_deserializer=cars__catalog__pb2.CarsCatalogResponse.FromString,
+            _registered_method=True,
+        )
 
 
 class CarsCatalogServiceServicer(object):
@@ -47,43 +51,48 @@ class CarsCatalogServiceServicer(object):
     def GetCarsCatalog(self, request, context):
         """Missing associated documentation comment in .proto file."""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
-        context.set_details('Method not implemented!')
-        raise NotImplementedError('Method not implemented!')
+        context.set_details("Method not implemented!")
+        raise NotImplementedError("Method not implemented!")
 
 
 def add_CarsCatalogServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'GetCarsCatalog': grpc.unary_unary_rpc_method_handler(
-                    servicer.GetCarsCatalog,
-                    request_deserializer=cars__catalog__pb2.Empty.FromString,
-                    response_serializer=cars__catalog__pb2.CarsCatalogResponse.SerializeToString,
-            ),
+        "GetCarsCatalog": grpc.unary_unary_rpc_method_handler(
+            servicer.GetCarsCatalog,
+            request_deserializer=cars__catalog__pb2.Empty.FromString,
+            response_serializer=cars__catalog__pb2.CarsCatalogResponse.SerializeToString,
+        ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
-            'cars.CarsCatalogService', rpc_method_handlers)
+        "cars.CarsCatalogService", rpc_method_handlers
+    )
     server.add_generic_rpc_handlers((generic_handler,))
-    server.add_registered_method_handlers('cars.CarsCatalogService', rpc_method_handlers)
+    server.add_registered_method_handlers(
+        "cars.CarsCatalogService", rpc_method_handlers
+    )
 
 
- # This class is part of an EXPERIMENTAL API.
+# This class is part of an EXPERIMENTAL API.
 class CarsCatalogService(object):
     """Missing associated documentation comment in .proto file."""
 
     @staticmethod
-    def GetCarsCatalog(request,
-            target,
-            options=(),
-            channel_credentials=None,
-            call_credentials=None,
-            insecure=False,
-            compression=None,
-            wait_for_ready=None,
-            timeout=None,
-            metadata=None):
+    def GetCarsCatalog(
+        request,
+        target,
+        options=(),
+        channel_credentials=None,
+        call_credentials=None,
+        insecure=False,
+        compression=None,
+        wait_for_ready=None,
+        timeout=None,
+        metadata=None,
+    ):
         return grpc.experimental.unary_unary(
             request,
             target,
-            '/cars.CarsCatalogService/GetCarsCatalog',
+            "/cars.CarsCatalogService/GetCarsCatalog",
             cars__catalog__pb2.Empty.SerializeToString,
             cars__catalog__pb2.CarsCatalogResponse.FromString,
             options,
@@ -94,4 +103,5 @@ class CarsCatalogService(object):
             wait_for_ready,
             timeout,
             metadata,
-            _registered_method=True)
+            _registered_method=True,
+        )

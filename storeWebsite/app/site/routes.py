@@ -1,44 +1,12 @@
-import grpc
 from flask import (
     redirect,
-    render_template,
     url_for,
 )
 from werkzeug.wrappers import Response
 
 from . import web_bp
-from .protos import cars_catalog_pb2, cars_catalog_pb2_grpc
+
 
 @web_bp.route("/", methods=["GET"])
 def index() -> Response:
-    return redirect(url_for("web.cars_catalog"))
-
-
-@web_bp.route("/catalog", methods=["GET"])
-def cars_catalog() -> str:
-    # Устанавливаем соединение с gRPC-сервером
-    with grpc.insecure_channel("localhost:50051") as channel:
-        stub = cars_catalog_pb2_grpc.CarsCatalogServiceStub(channel)
-        response = stub.GetCarsCatalog(cars_catalog_pb2.Empty())
-
-    # Преобразуем данные из gRPC-ответа в список словарей
-    cars: list[dict] = [
-        {
-            "id": car.id,
-            "name": car.name,
-            "price": car.price,
-            "image_url": car.image_url,
-            "year": car.year,
-            "color": car.color,
-            "transmission": car.transmission,
-            "old_price": car.old_price,
-            "discount": car.discount,
-            "drive_type": car.drive_type,
-            "engine": car.engine,
-            "fuel_type": car.fuel_type,
-        }
-        for car in response.cars
-    ]
-
-    # Передаем данные в шаблон
-    return render_template("catalog.html", cars=cars)
+    return redirect(url_for("warehouse.cars_catalog"))
