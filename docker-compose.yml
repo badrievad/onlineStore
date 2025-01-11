@@ -1,0 +1,27 @@
+version: '3.9'
+services:
+  flask_app:
+    build:
+      context: ./storeWebsite
+    ports:
+      - '5001:5000' # Пробрасываем порт Flask
+    volumes:
+      - ./storeWebsite:/flask_web_service
+    depends_on:
+      - store_warehouse
+    networks:
+      - onlinestore_network
+
+  store_warehouse:
+    build:
+      context: ./storeWarehouse
+    ports:
+      - '50051:50051' # Пробрасываем порт gRPC
+    volumes:
+      - ./storeWarehouse:/grpc/storeWarehouse_service
+    networks:
+      - onlinestore_network
+
+networks:
+  onlinestore_network:
+    driver: bridge

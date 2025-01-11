@@ -8,7 +8,7 @@ from .protos import cars_catalog_pb2, cars_catalog_pb2_grpc
 @warehouse_bp.route("/catalog", methods=["GET"])
 def cars_catalog() -> str:
     # Устанавливаем соединение с gRPC-сервером
-    with grpc.insecure_channel("localhost:50051") as channel:
+    with grpc.insecure_channel("store_warehouse:50051") as channel:
         stub = cars_catalog_pb2_grpc.CarsCatalogServiceStub(channel)
         response = stub.GetCarsCatalog(cars_catalog_pb2.Empty())
 
